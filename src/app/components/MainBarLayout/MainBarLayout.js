@@ -10,9 +10,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { Main, AppBar, DrawerHeader, DrawerList } from "./components";
-import { DRAWER_WIDTH } from "../../constants";
+import { DRAWER_WIDTH } from "src/constants";
 
-export const MainBarLayout = ({ children }) => {
+const MainBarLayout = ({ children }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => setOpen(true);
@@ -68,3 +68,5 @@ export const MainBarLayout = ({ children }) => {
     </Box>
   );
 };
+
+export default MainBarLayout;

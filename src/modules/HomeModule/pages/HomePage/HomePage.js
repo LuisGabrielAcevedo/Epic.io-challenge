@@ -1,5 +1,5 @@
 import React from "react";
-import { ContentLayout, Card, CardsContainer } from "../../../../components";
+import { ContentLayout, Card, CardsContainer } from "src/components";
 
 const HomePage = () => {
   return (

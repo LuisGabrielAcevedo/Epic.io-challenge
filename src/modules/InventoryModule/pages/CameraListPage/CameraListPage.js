@@ -6,7 +6,7 @@ import {
   CustomTable,
   CustomDialog,
   EmptyState,
-} from "../../../../components";
+} from "src/components";
 import AddIcon from "@material-ui/icons/Add";
 import {
   addCameraAction,
@@ -14,7 +14,7 @@ import {
   deleteCameraAction,
   editCameraAction,
   openCameraDialogAction,
-} from "../../../../store/actions";
+} from "src/store/actions";
 import CameraForm from "./components/CameraForm";
 
 const metadata = [

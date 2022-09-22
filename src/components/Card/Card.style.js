@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PRIMARY_BLUE, BLUE_08, GREY_12 } from "../../constants";
+import { PRIMARY_BLUE, BLUE_08, GREY_12 } from "src/constants";
 
 export const CardStyle = {
   Container: styled.div`

@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
 import { CameraFormStyle as S } from "./CameraForm.style";
-import { CameraSchema } from "../../../../../yupSchemas";
+import { CameraSchema } from "src/yupSchemas";
 import { InputLabel, MenuItem, Select } from "@material-ui/core";
 
 const CameraForm = ({

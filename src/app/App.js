@@ -1,14 +1,16 @@
-import "./App.css";
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Loading, MainBarLayout } from "./components";
+import { Loading } from "src/components";
+import MainBarLayout from "./components/MainBarLayout/MainBarLayout";
 
 const InventoryModule = React.lazy(() =>
-  import("./modules/InventoryModule/InventoryModule")
+  import("src/modules/InventoryModule/InventoryModule")
 );
-const HomeModule = React.lazy(() => import("./modules/HomeModule/HomeModule"));
+const HomeModule = React.lazy(() =>
+  import("src/modules/HomeModule/HomeModule")
+);
 const StoreModule = React.lazy(() =>
-  import("./modules/StoreModule/StoreModule")
+  import("src/modules/StoreModule/StoreModule")
 );
 
 function App() {

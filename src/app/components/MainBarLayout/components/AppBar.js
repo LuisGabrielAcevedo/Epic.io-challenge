@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { DRAWER_WIDTH } from "../../../constants";
+import { DRAWER_WIDTH } from "src/constants";
 import MuiAppBar from "@mui/material/AppBar";
 
 export const AppBar = styled(MuiAppBar, {

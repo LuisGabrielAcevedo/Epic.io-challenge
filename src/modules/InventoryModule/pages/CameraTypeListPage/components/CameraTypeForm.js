@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
 import { CameraTypeFormStyle as S } from "./CameraTypeForm.style";
-import { CameraTypeSchema } from "../../../../../yupSchemas";
+import { CameraTypeSchema } from "src/yupSchemas";
 
 const CameraTypeForm = ({
   handleClose = () => {},

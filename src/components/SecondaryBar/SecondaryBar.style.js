@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GREY_12, PRIMARY_BLUE } from "../../constants";
+import { GREY_12, PRIMARY_BLUE } from "src/constants";
 
 export const SecondaryBarStyle = {
   Container: styled.div`

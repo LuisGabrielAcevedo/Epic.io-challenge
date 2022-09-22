@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { BACKGROUND_GREY, DRAWER_WIDTH } from "../../../constants";
+import { BACKGROUND_GREY, DRAWER_WIDTH } from "src/constants";
 
 export const Main = styled("main", {
   shouldForwardProp: (prop) => prop !== "open",

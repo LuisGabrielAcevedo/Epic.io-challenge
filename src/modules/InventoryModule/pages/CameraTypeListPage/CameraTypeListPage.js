@@ -6,7 +6,7 @@ import {
   CustomTable,
   CustomDialog,
   EmptyState,
-} from "../../../../components";
+} from "src/components";
 import AddIcon from "@material-ui/icons/Add";
 import {
   addCameraTypeAction,
@@ -14,7 +14,7 @@ import {
   deleteCameraTypeAction,
   editCameraTypeAction,
   openCameraTypeDialogAction,
-} from "../../../../store/actions";
+} from "src/store/actions";
 import CameraTypeForm from "./components/CameraTypeForm";
 import { CameraTypeListPagetyle as S } from "./CameraTypeListPage.style";
 
