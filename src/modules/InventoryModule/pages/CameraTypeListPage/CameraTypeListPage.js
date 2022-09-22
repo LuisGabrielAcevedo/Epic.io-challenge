@@ -1,5 +1,4 @@
-import { IconButton } from "@material-ui/core";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ContentLayout,
@@ -16,7 +15,7 @@ import {
   openCameraTypeDialogAction,
 } from "src/store/actions";
 import CameraTypeForm from "./components/CameraTypeForm";
-import { CameraTypeListPagetyle as S } from "./CameraTypeListPage.style";
+import IconButton from "@material-ui/core/IconButton";
 
 const metadata = [
   {
@@ -34,23 +33,13 @@ const metadata = [
 ];
 
 const CameraTypeListPage = () => {
-  const [usedError, setUsedError] = useState(false);
   const { list, dialogState, currentItem } = useSelector(
     (state) => state.cameraTypes
   );
-  const { list: cameras } = useSelector((state) => state.cameras);
   const d = useDispatch();
   const openDialog = (item) => d(openCameraTypeDialogAction(item));
   const closeDialog = () => d(closeCameraTypeDialogAction());
-  const deleteCameraType = (id) => {
-    const isUsedType = cameras.find((item) => item.cameraType === id);
-    if (isUsedType) {
-      return setUsedError(true);
-    } else {
-      setUsedError(false);
-      d(deleteCameraTypeAction(id));
-    }
-  };
+  const deleteCameraType = (id) => d(deleteCameraTypeAction(id));
 
   const onSubmit = (values) => {
     const { id } = values || {};
@@ -59,11 +48,6 @@ const CameraTypeListPage = () => {
 
   return (
     <ContentLayout title="Camera types">
-      {usedError && (
-        <S.Alert severity="error">
-          You cannot delete this type of camera because it is in use!
-        </S.Alert>
-      )}
       <CustomTable
         {...{ metadata }}
         data={list}

@@ -1,24 +1,13 @@
 import {
-  ADD_CAMERA_TYPE,
-  DELETE_CAMERA_TYPE,
   OPEN_CAMERA_TYPE_DIALOG,
   CLOSE_CAMERA_TYPE_DIALOG,
-  EDIT_CAMERA_TYPE,
+  SET_CAMERA_TYPE_LIST,
 } from "../types";
+import { openSnackbarAction } from "./app.actions";
 import { v4 as uuidv4 } from "uuid";
 
-export const addCameraTypeAction = (payload) => ({
-  type: ADD_CAMERA_TYPE,
-  payload,
-});
-
-export const editCameraTypeAction = (payload) => ({
-  type: EDIT_CAMERA_TYPE,
-  payload,
-});
-
-export const deleteCameraTypeAction = (payload) => ({
-  type: DELETE_CAMERA_TYPE,
+export const setCameraTypeListAction = (payload) => ({
+  type: SET_CAMERA_TYPE_LIST,
   payload,
 });
 
@@ -27,57 +16,69 @@ export const openCameraTypeDialogAction = (payload) => ({
   payload,
 });
 
-export const closeCameraTypeDialogAction = (payload) => ({
+export const closeCameraTypeDialogAction = () => ({
   type: CLOSE_CAMERA_TYPE_DIALOG,
-  payload,
 });
 
-export const addCameraType = (state, cameraType) => {
-  return {
-    ...state,
-    dialogState: false,
-    currentItem: {},
-    list: [
-      ...state.list,
-      {
-        id: uuidv4(),
-        name: cameraType.name,
-        description: cameraType.description,
-      },
-    ],
+export const addCameraTypeAction =
+  (cameraType) => async (dispatch, getState) => {
+    const cameraTypesList = getState().cameraTypes.list;
+    dispatch(
+      setCameraTypeListAction([
+        ...cameraTypesList,
+        {
+          id: uuidv4(),
+          ...cameraType,
+        },
+      ])
+    );
+    dispatch(
+      openSnackbarAction({
+        message: "Camera type added succesfully",
+        type: "success",
+      })
+    );
   };
-};
 
-export const editCameraType = (state, cameraType) => {
-  return {
-    ...state,
-    dialogState: false,
-    currentItem: {},
-    list: [...state.list].map((item) =>
-      item.id === cameraType.id ? cameraType : item
-    ),
+export const editCameraTypeAction =
+  (cameraType) => async (dispatch, getState) => {
+    const cameraTypesList = getState().cameraTypes.list;
+    dispatch(
+      setCameraTypeListAction(
+        [...cameraTypesList].map((item) =>
+          item.id === cameraType.id ? cameraType : item
+        )
+      )
+    );
+    dispatch(
+      openSnackbarAction({
+        message: "Camera type edited succesfully",
+        type: "success",
+      })
+    );
   };
-};
 
-export const deleteCameraType = (state, id) => {
-  return {
-    ...state,
-    list: [...state.list].filter((i) => i.id !== id),
-  };
-};
+export const deleteCameraTypeAction = (id) => async (dispatch, getState) => {
+  const cameraTypesList = getState().cameraTypes.list;
+  const cameras = getState().cameras.list;
 
-export const openCameraTypeDialog = (state, data) => {
-  return {
-    ...state,
-    dialogState: true,
-    currentItem: data || {},
-  };
-};
+  const isUsedType = cameras.find((item) => item.cameraType === id);
 
-export const closeCameraTypeDialog = (state) => {
-  return {
-    ...state,
-    dialogState: false,
-    currentItem: {},
-  };
+  if (isUsedType)
+    return dispatch(
+      openSnackbarAction({
+        message: "You cannot delete this type of camera because it is in use!",
+        type: "error",
+      })
+    );
+
+  dispatch(
+    setCameraTypeListAction([...cameraTypesList].filter((i) => i.id !== id))
+  );
+  dispatch(
+    openSnackbarAction({
+      message: "Camera type deleted succesfully",
+      type: "success",
+    })
+  );
 };

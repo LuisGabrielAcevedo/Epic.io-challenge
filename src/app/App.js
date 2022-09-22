@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Loading } from "src/components";
 import MainBarLayout from "./components/MainBarLayout/MainBarLayout";
+import SnackBarContainer from "./components/SnackbarContainer/SnackBarContainer";
 
 const InventoryModule = React.lazy(() =>
   import("src/modules/InventoryModule/InventoryModule")
@@ -24,6 +25,7 @@ function App() {
             <Route path="/store/*" element={<StoreModule />} />
             <Route path="*" element={<Navigate to="/home" replace />} />
           </Routes>
+          <SnackBarContainer />
         </MainBarLayout>
       </BrowserRouter>
     </Suspense>

@@ -1,24 +1,13 @@
 import {
-  ADD_CAMERA,
-  DELETE_CAMERA,
   OPEN_CAMERA_DIALOG,
   CLOSE_CAMERA_DIALOG,
-  EDIT_CAMERA,
+  SET_CAMERA_LIST,
 } from "../types";
+import { openSnackbarAction } from "./app.actions";
 import { v4 as uuidv4 } from "uuid";
 
-export const addCameraAction = (payload) => ({
-  type: ADD_CAMERA,
-  payload,
-});
-
-export const editCameraAction = (payload) => ({
-  type: EDIT_CAMERA,
-  payload,
-});
-
-export const deleteCameraAction = (payload) => ({
-  type: DELETE_CAMERA,
+export const setCameraListAction = (payload) => ({
+  type: SET_CAMERA_LIST,
   payload,
 });
 
@@ -27,56 +16,51 @@ export const openCameraDialogAction = (payload) => ({
   payload,
 });
 
-export const closeCameraDialogAction = (payload) => ({
+export const closeCameraDialogAction = () => ({
   type: CLOSE_CAMERA_DIALOG,
-  payload,
 });
 
-export const addCamera = (state, camera) => {
-  return {
-    ...state,
-    dialogState: false,
-    currentItem: {},
-    list: [
-      ...state.list,
+export const addCameraAction = (camera) => async (dispatch, getState) => {
+  const camerasList = getState().cameras.list;
+  dispatch(
+    setCameraListAction([
+      ...camerasList,
       {
         id: uuidv4(),
         ...camera,
       },
-    ],
-  };
+    ])
+  );
+  dispatch(
+    openSnackbarAction({
+      message: "Camera added succesfully",
+      type: "success",
+    })
+  );
 };
 
-export const editCamera = (state, camera) => {
-  return {
-    ...state,
-    dialogState: false,
-    currentItem: {},
-    list: [...state.list].map((item) =>
-      item.id === camera.id ? camera : item
-    ),
-  };
+export const editCameraAction = (camera) => async (dispatch, getState) => {
+  const camerasList = getState().cameras.list;
+  dispatch(
+    setCameraListAction(
+      [...camerasList].map((item) => (item.id === camera.id ? camera : item))
+    )
+  );
+  dispatch(
+    openSnackbarAction({
+      message: "Camera edited succesfully",
+      type: "success",
+    })
+  );
 };
 
-export const deleteCamera = (state, id) => {
-  return {
-    ...state,
-    list: [...state.list].filter((i) => i.id !== id),
-  };
-};
-
-export const openCameraDialog = (state, data) => {
-  return {
-    ...state,
-    dialogState: true,
-    currentItem: data || {},
-  };
-};
-
-export const closeCameraDialog = (state) => {
-  return {
-    ...state,
-    dialogState: false,
-    currentItem: {},
-  };
+export const deleteCameraAction = (id) => async (dispatch, getState) => {
+  const camerasList = getState().cameras.list;
+  dispatch(setCameraListAction([...camerasList].filter((i) => i.id !== id)));
+  dispatch(
+    openSnackbarAction({
+      message: "Camera deleted succesfully",
+      type: "success",
+    })
+  );
 };
