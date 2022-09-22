@@ -1,11 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ContentLayout,
-  CustomTable,
-  CustomDialog,
-  EmptyState,
-} from "src/components";
+import { ContentLayout, CustomTable, CustomDialog } from "src/components";
 import AddIcon from "@material-ui/icons/Add";
 import {
   addCameraAction,
@@ -74,6 +69,7 @@ const CameraListPage = () => {
         data={list}
         handleDelete={deleteCamera}
         handleEdit={openDialog}
+        emptyStateMessage="No cameras added."
         rightComponent={() => (
           <>
             <IconButton color="primary" onClick={() => openDialog(null)}>
@@ -95,7 +91,6 @@ const CameraListPage = () => {
           item.name.match(reg) || item.brand.match(reg) || item.model.match(reg)
         }
       />
-      <EmptyState data={list} text="No cameras added." />
     </ContentLayout>
   );
 };

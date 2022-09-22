@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import { Button, ButtonGroup } from "@material-ui/core";
 import Search from "./components/Search";
 import { TableStyle as S } from "./Table.style";
+import { EmptyState } from "../EmptyState/EmptyState";
 
 export const CustomTable = ({
   data = [],
@@ -19,6 +20,7 @@ export const CustomTable = ({
   metadata = [],
   searchCondition = () => true,
   rightComponent = () => <></>,
+  emptyStateMessage = "",
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [filteredList, setFilteredList] = useState(data);
@@ -81,6 +83,10 @@ export const CustomTable = ({
           </TableBody>
         </Table>
       </TableContainer>
+      <EmptyState
+        data={filteredList}
+        text={inputValue ? "No results for the search." : emptyStateMessage}
+      />
     </>
   );
 };
